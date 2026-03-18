@@ -1,42 +1,15 @@
 def add(a, b):
-    """
-    Add two numbers and return the result.
-    
-    Args:
-        a: First number
-        b: Second number
-    
-    Returns:
-        The sum of a and b
-    """
+    """Add two numbers and return the result."""
     return a + b
 
 
 def subtract(a, b):
-    """
-    Subtract two numbers and return the result.
-    
-    Args:
-        a: First number
-        b: Second number
-    
-    Returns:
-        The difference of a and b
-    """
+    """Subtract two numbers and return the result."""
     return a - b
 
 
 def multiply(a, b):
-    """
-    Multiply two numbers and return the result.
-    
-    Args:
-        a: First number
-        b: Second number
-    
-    Returns:
-        The product of a and b
-    """
+    """Multiply two numbers and return the result."""
     return a * b
 
 
@@ -60,61 +33,92 @@ def divide(a, b):
     return a / b
 
 
-def calculator(operation, a, b):
+def display_menu():
+    """Display the calculator menu options."""
+    print("\n" + "="*40)
+    print("        SIMPLE CALCULATOR")
+    print("="*40)
+    print("Select an operation:")
+    print("1. Addition (+)")
+    print("2. Subtraction (-)")
+    print("3. Multiplication (*)")
+    print("4. Division (/)")
+    print("5. Exit")
+    print("="*40)
+
+
+def get_numbers():
     """
-    Main calculator function that performs the requested operation.
-    
-    Args:
-        operation: String indicating the operation ('add', 'subtract', 'multiply', 'divide')
-        a: First number
-        b: Second number
+    Prompt user to input two numbers.
     
     Returns:
-        The result of the operation
+        Tuple of two floats
     
     Raises:
-        ValueError: If attempting to divide by zero or invalid operation
+        ValueError: If user input is not a valid number
     """
     try:
-        if operation.lower() == 'add':
-            return add(a, b)
-        elif operation.lower() == 'subtract':
-            return subtract(a, b)
-        elif operation.lower() == 'multiply':
-            return multiply(a, b)
-        elif operation.lower() == 'divide':
-            return divide(a, b)
+        num1 = float(input("\nEnter the first number: "))
+        num2 = float(input("Enter the second number: "))
+        return num1, num2
+    except ValueError:
+        print("Error: Please enter valid numbers!")
+        return None, None
+
+
+def perform_operation(operation, num1, num2):
+    """
+    Perform the selected arithmetic operation.
+    
+    Args:
+        operation: String representing the operation ('1', '2', '3', or '4')
+        num1: First number
+        num2: Second number
+    
+    Returns:
+        The result of the operation or an error message
+    """
+    try:
+        if operation == '1':
+            result = add(num1, num2)
+            print(f"\n{num1} + {num2} = {result}")
+        elif operation == '2':
+            result = subtract(num1, num2)
+            print(f"\n{num1} - {num2} = {result}")
+        elif operation == '3':
+            result = multiply(num1, num2)
+            print(f"\n{num1} * {num2} = {result}")
+        elif operation == '4':
+            result = divide(num1, num2)
+            print(f"\n{num1} / {num2} = {result}")
         else:
-            raise ValueError(f"Error: Unknown operation '{operation}'. Use 'add', 'subtract', 'multiply', or 'divide'.")
+            print("Error: Invalid operation choice. Please select 1, 2, 3, or 4.")
     except ValueError as e:
-        return str(e)
+        print(f"\n{e}")
     except Exception as e:
-        return f"Error: An unexpected error occurred: {str(e)}"
+        print(f"\nError: An unexpected error occurred: {str(e)}")
 
 
-# Example usage
+def main():
+    """Main function to run the calculator application."""
+    print("\nWelcome to the Simple Calculator!")
+    
+    while True:
+        display_menu()
+        choice = input("Enter your choice (1-5): ").strip()
+        
+        if choice == '5':
+            print("\nThank you for using the Simple Calculator. Goodbye!")
+            break
+        
+        if choice in ['1', '2', '3', '4']:
+            num1, num2 = get_numbers()
+            if num1 is not None and num2 is not None:
+                perform_operation(choice, num1, num2)
+        else:
+            print("Error: Invalid choice. Please enter 1, 2, 3, 4, or 5.")
+
+
+# Run the calculator
 if __name__ == "__main__":
-    print("=== Calculator Examples ===\n")
-    
-    # Addition
-    print(f"Add: 10 + 5 = {add(10, 5)}")
-    
-    # Subtraction
-    print(f"Subtract: 10 - 5 = {subtract(10, 5)}")
-    
-    # Multiplication
-    print(f"Multiply: 10 * 5 = {multiply(10, 5)}")
-    
-    # Division (normal)
-    print(f"Divide: 10 / 5 = {divide(10, 5)}")
-    
-    # Division by zero (error handling)
-    print(f"Divide: 10 / 0 = {calculator('divide', 10, 0)}")
-    
-    # Using the main calculator function
-    print("\n=== Using Main Calculator Function ===\n")
-    print(f"Calculator('add', 15, 3) = {calculator('add', 15, 3)}")
-    print(f"Calculator('subtract', 15, 3) = {calculator('subtract', 15, 3)}")
-    print(f"Calculator('multiply', 15, 3) = {calculator('multiply', 15, 3)}")
-    print(f"Calculator('divide', 15, 3) = {calculator('divide', 15, 3)}")
-    print(f"Calculator('divide', 15, 0) = {calculator('divide', 15, 0)}")
+    main()
