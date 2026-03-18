@@ -1,6 +1,17 @@
-git clone https://github.com/davidakpovi/Prompt\ Exercise.git
-cd Prompt\ Exercise
-# Create and add the calculator.py file with the code above
-git add calculator.py
-git commit -m "Add calculator.py with basic arithmetic functions"
-git push
+def add(a, b):
+    """Add two numbers and return the result."""
+    return a + b
+
+def subtract(a, b):
+    """Subtract two numbers and return the result."""
+    return a - b
+
+def multiply(a, b):
+    """Multiply two numbers and return the result."""
+    return a * b
+
+# Example usage
+if __name__ == "__main__":
+    print(f"Add: {add(10, 5)}")
+    print(f"Subtract: {subtract(10, 5)}")
+    print(f"Multiply: {multiply(10, 5)}")
